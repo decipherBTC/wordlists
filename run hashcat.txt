@@ -1,0 +1,79 @@
+# Operation BB
+
+* General setup:
+
+### Update, and install GIT to curl files and nano to edit text. 
+
+sudo apt-get update && sudo apt-get install git && sudo apt-get install nano
+
+### go to hashcat dictonary --> make nano file with hash, and maybe charset.
+
+cd hashcat
+nano hash.txt
+nano chars.txt
+
+### Paste the hash and the charset.
+
+-----------SETUP IS COMPLETE--------------------------------------------------------
+
+################################################################
+## Exhaust search space with custom charset and custom lenght ## 
+################################################################
+
+hashcat -a 3 -m 15200 hash.txt --custom-charset1 chars.txt ?1?1?1?1?1?1?1?1?1 (8 characters) (testing on "Anubis1234567890!"
+
+----------------------------
+""""""-a 3 specifies MODE MASK / BRUTEFORCE / EXHAUST
+""""""-m is MODE 
+""""""hash.txt is the file containing the hash (in the same dir)
+""""""--custom-charset1 specifies that there is a custom character lists
+""""""chars.txt is the file containing the characters from the custom list
+""""""?1?1?1?1?1?1?1?1 specifies to exhaust bruteforce with 8 characters
+
+_____________________________________________________________________________________
+
+################################################################
+      ## 10 CHAR WITH SELECTED CUSTOM CHARACTERS EXHAUST ##
+################################################################
+
+hashcat -a 3 -m 15200 hash.txt --custom-charset1 chars.txt ?1?1?1?1?1?1?1?1?1?1
+
+TESTING WITH "anubisANUBISlLuUeE1234567890jJmMcC" (all password characters previously used, and 10 char"
+
+hashcat -a 6 -m 15200 hash.txt wordlist.txt ?d?d?d?d?d?d
+
+hashcat -m 15200 -a 0 -r /root/hashcat/rules/OneRuleToRuleThemAll.rule hash.txt list.txt
+
+
+
+hashcat -m
+
+
+------------TODOLIST-------------------------------------------------------------------
+
+* Make a database tool that divides the total search space into parts and-
+lets each gpu rig connect to it and report back, so you can cluster this to speed up.
+
+
+
+
+#####################FILES################################
+
+chars.txt
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+
+anubisANUBIS1234567890_.-!@*$?&%
+
+hashcat -m 15200 -a 0 -r /root/hashcat/rules/Incisive-leetspeak.rule hash.txt list.txt
+
+
+Incisive-leetspeak.rule                         T0XlCv2.rule     rockyou-30000.rule
+InsidePro-HashManager.rule                      best64.rule      specific.rule
+InsidePro-PasswordsPro.rule                     combinator.rule  toggles1.rule
+OneRuleToRuleThemAll.rule                       d3ad0ne.rule     toggles2.rule
+T0XlC-insert_00-99_1950-2050_toprules_0_F.rule  dive.rule        toggles3.rule
+T0XlC-insert_space_and_special_0_F.rule         generated.rule   toggles4.rule
+T0XlC-insert_top_100_passwords_1_G.rule         generated2.rule  toggles5.rule
+T0XlC.rule                                      hybrid           unix-ninja-leetspeak.rule
+T0XlC_3_rule.rule                               leetspeak.rule   wordlist.txt
+T0XlC_insert_HTML_entities_0_Z.rule             oscommerce.rule
